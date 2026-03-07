@@ -7,7 +7,8 @@
   ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═════╝     
 ```
 
-> *belajar pelan-pelan, yang penting terus maju.*
+> *belajar pelan-pelan,
+> pelan-pelan terus belajar.*
 
 catatan belajar IT dari fundamental sampai expert... semoga bermanfaat.
 
