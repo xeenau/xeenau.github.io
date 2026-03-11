@@ -150,6 +150,11 @@
   .badge { font-family: var(--mono); font-size: 10px; padding: 3px 10px; border-radius: 100px; letter-spacing: 0.5px; font-weight: 500; }
   .badge-live { background: rgba(104,211,145,0.1); border: 1px solid rgba(104,211,145,0.2); color: var(--green); }
   .badge-soon { background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: var(--text-muted); }
+  .badge-beta {
+    background: rgba(159,122,234,0.1);
+    border: 1px solid rgba(159,122,234,0.2);
+    color: #9f7aea;
+  }
 
   .arrow { color: var(--text-muted); font-size: 16px; transition: all 0.2s; }
   .card:hover .arrow { color: var(--blue); transform: translateX(3px); }
@@ -168,6 +173,7 @@
     main { padding: 0 20px; }
     .hero { padding: 100px 0 60px; }
     .footer { padding: 24px 20px; }
+    #catatan > div { grid-template-columns: 1fr !important; }
   }
 </style>
 </head>
@@ -204,93 +210,151 @@
   </div>
 
   <div id="catatan">
-    <div class="grid-label">catatan</div>
-    <div class="grid">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start;">
+      
+      <!-- CATATAN COLUMN -->
+      <div>
+        <div class="grid-label">catatan</div>
+        <div class="grid">
 
-      <!-- #fundamental -->
-      <a href="https://github.com/xeenau/xeenau.github.io/blob/main/fundamental/fundamental-it.md" target="_blank" class="card">
-        <div class="card-l">
-          <div class="icon-wrap">📌</div>
-          <div class="card-info">
-            <h3>fundamental-it.md</h3>
-            <p>5 hal wajib sebelum belajar IT — networking, OS, logic, infra, security</p>
-          </div>
-        </div>
-        <div class="card-r">
-          <span class="badge badge-live">live</span>
-          <span class="arrow">→</span>
-        </div>
-      </a>
+          <!-- #fundamental -->
+          <a href="https://github.com/xeenau/xeenau.github.io/blob/main/fundamental/fundamental-it.md" target="_blank" class="card">
+            <div class="card-l">
+              <div class="icon-wrap">📌</div>
+              <div class="card-info">
+                <h3>fundamental-it.md</h3>
+                <p>5 hal wajib sebelum belajar IT</p>
+              </div>
+            </div>
+            <div class="card-r">
+              <span class="badge badge-live">live</span>
+              <span class="arrow">→</span>
+            </div>
+          </a>
 
-      <!-- #linux -->
-      <a href="https://github.com/xeenau/xeenau.github.io/blob/main/linux/" target="_blank" class="card">
-        <div class="card-l">
-          <div class="icon-wrap">🐧</div>
-          <div class="card-info">
-            <h3>linux/</h3>
-            <p>catatan belajar linux dari dasar</p>
-          </div>
-        </div>
-        <div class="card-r">
-          <span class="badge badge-live">live</span>
-          <span class="arrow">→</span>
-        </div>
-      </a>
+          <!-- #linux -->
+          <a href="https://github.com/xeenau/xeenau.github.io/blob/main/linux/basic-linux.md" target="_blank" class="card">
+            <div class="card-l">
+              <div class="icon-wrap">🐧</div>
+              <div class="card-info">
+                <h3>linux/</h3>
+                <p>catatan belajar linux dari dasar</p>
+              </div>
+            </div>
+            <div class="card-r">
+              <span class="badge badge-live">live</span>
+              <span class="arrow">→</span>
+            </div>
+          </a>
 
-      <!-- #networking -->
-      <a href="https://github.com/xeenau/xeenau.github.io/blob/main/networking/" target="_blank" class="card">
-        <div class="card-l">
-          <div class="icon-wrap">🌐</div>
-          <div class="card-info">
-            <h3>networking/</h3>
-            <p>catatan belajar networking dari dasar</p>
-          </div>
-        </div>
-        <div class="card-r">
-          <span class="badge badge-live">live</span>
-          <span class="arrow">→</span>
-        </div>
-      </a>
+          <!-- #networking -->
+          <a href="https://github.com/xeenau/xeenau.github.io/blob/main/networking/basic-networking.md" target="_blank" class="card">
+            <div class="card-l">
+              <div class="icon-wrap">🌐</div>
+              <div class="card-info">
+                <h3>networking/</h3>
+                <p>catatan belajar networking dari dasar</p>
+              </div>
+            </div>
+            <div class="card-r">
+              <span class="badge badge-live">live</span>
+              <span class="arrow">→</span>
+            </div>
+          </a>
 
-      <!-- #logic -->
-      <div class="card dim">
-        <div class="card-l">
-          <div class="icon-wrap">💡</div>
-          <div class="card-info">
-            <h3>logic & coding/</h3>
-            <p>catatan belajar logic & coding dari dasar</p>
+          <!-- #logic -->
+          <div class="card dim">
+            <div class="card-l">
+              <div class="icon-wrap">💡</div>
+              <div class="card-info">
+                <h3>logic & coding/</h3>
+                <p>catatan belajar logic & coding dari dasar</p>
+              </div>
+            </div>
+            <div class="card-r">
+              <span class="badge badge-soon">soon</span>
+            </div>
           </div>
-        </div>
-        <div class="card-r">
-          <span class="badge badge-soon">soon</span>
+
+          <!-- #infrastructure -->
+          <div class="card dim">
+            <div class="card-l">
+              <div class="icon-wrap">🏗️</div>
+              <div class="card-info">
+                <h3>infrastructure/</h3>
+                <p>catatan belajar infrastructure dari dasar</p>
+              </div>
+            </div>
+            <div class="card-r">
+              <span class="badge badge-soon">soon</span>
+            </div>
+          </div>
+
+          <!-- #security -->
+          <div class="card dim">
+            <div class="card-l">
+              <div class="icon-wrap">🔒</div>
+              <div class="card-info">
+                <h3>security/</h3>
+                <p>catatan belajar security dari dasar</p>
+              </div>
+            </div>
+            <div class="card-r">
+              <span class="badge badge-soon">soon</span>
+            </div>
+          </div>
+
         </div>
       </div>
 
-      <!-- #infrastructure -->
-      <div class="card dim">
-        <div class="card-l">
-          <div class="icon-wrap">🏗️</div>
-          <div class="card-info">
-            <h3>infrastructure/</h3>
-            <p>catatan belajar infrastructure dari dasar</p>
-          </div>
-        </div>
-        <div class="card-r">
-          <span class="badge badge-soon">soon</span>
-        </div>
-      </div>
+      <!-- LAB COLUMN -->
+      <div>
+        <div class="grid-label">lab</div>
+        <div class="grid">
 
-      <!-- #security -->
-      <div class="card dim">
-        <div class="card-l">
-          <div class="icon-wrap">🔒</div>
-          <div class="card-info">
-            <h3>security/</h3>
-            <p>catatan belajar security dari dasar</p>
+          <!-- #lab python -->
+          <a href="/lab/python" target="_blank" class="card">
+            <div class="card-l">
+              <div class="icon-wrap">🧪</div>
+              <div class="card-info">
+                <h3>python</h3>
+                <p>practice Python langsung di browser</p>
+              </div>
+            </div>
+            <div class="card-r">
+              <span class="badge badge-beta">beta</span>
+              <span class="arrow">→</span>
+            </div>
+          </a>
+
+          <!-- #lab js -->
+          <div class="card dim">
+            <div class="card-l">
+              <div class="icon-wrap">🟨</div>
+              <div class="card-info">
+                <h3>javascript</h3>
+                <p>practice JavaScript langsung di browser</p>
+              </div>
+            </div>
+            <div class="card-r">
+              <span class="badge badge-soon">soon</span>
+            </div>
           </div>
-        </div>
-        <div class="card-r">
-          <span class="badge badge-soon">soon</span>
+
+          <!-- #lab sql -->
+          <div class="card dim">
+            <div class="card-l">
+              <div class="icon-wrap">🗄️</div>
+              <div class="card-info">
+                <h3>sql</h3>
+                <p>practice SQL langsung di browser</p>
+              </div>
+            </div>
+            <div class="card-r">
+              <span class="badge badge-soon">soon</span>
+            </div>
+          </div>
+
         </div>
       </div>
 
