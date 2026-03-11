@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>xeenau · lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+<style>
+  :root {
+    --bg: #050507;
+    --surface: rgba(255,255,255,0.03);
+    --surface-hover: rgba(255,255,255,0.06);
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(99,179,237,0.4);
+    --text: #f0f4ff;
+    --text-dim: #6b7a99;
+    --text-muted: #3a4560;
+    --blue: #63b3ed;
+    --blue-glow: rgba(99,179,237,0.15);
+    --green: #68d391;
+    --green-glow: rgba(104,211,145,0.15);
+    --red: #fc8181;
+    --red-glow: rgba(252,129,129,0.15);
+    --sans: 'Space Grotesk', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .orb { position: fixed; border-radius: 50%; filter: blur(120px); pointer-events: none; z-index: 0; }
+  .orb-1 { width: 500px; height: 500px; background: rgba(99,179,237,0.06); top: -200px; left: -100px; }
+  .orb-2 { width: 400px; height: 400px; background: rgba(159,122,234,0.05); bottom: 0; right: -100px; }
+  .orb-3 { width: 300px; height: 300px; background: rgba(104,211,145,0.04); top: 40%; left: 40%; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 0 48px; height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    background: rgba(5,5,7,0.8);
+    backdrop-filter: blur(20px);
+  }
+
+  .logo { font-family: var(--mono); font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; letter-spacing: -0.5px; }
+  .logo span { color: var(--text-muted); }
+
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+
+  .status-badge {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 12px; font-family: var(--mono); color: var(--green);
+    padding: 6px 12px;
+    background: rgba(104,211,145,0.06);
+    border: 1px solid rgba(104,211,145,0.15);
+    border-radius: 100px;
+  }
+
+  .dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; box-shadow: 0 0 8px var(--green); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  /* MAIN */
+  main {
+    position: relative; z-index: 1;
+    max-width: 900px; margin: 0 auto;
+    padding: 80px 40px 40px;
+  }
+
+  .hero {
+    padding: 60px 0 40px;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 11px; color: var(--blue);
+    letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;
+    padding: 6px 14px;
+    background: rgba(99,179,237,0.06); border: 1px solid rgba(99,179,237,0.15);
+    border-radius: 100px;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 700;
+    line-height: 1.15; letter-spacing: -1.5px; margin-bottom: 12px;
+    background: linear-gradient(135deg, #f0f4ff 0%, #8bafd4 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+
+  .hero p { font-size: 14px; color: var(--text-dim); line-height: 1.75; }
+
+  /* LAB */
+  .lab-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .panel-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(255,255,255,0.02);
+  }
+
+  .panel-title {
+    font-family: var(--mono); font-size: 11px; color: var(--text-dim);
+    letter-spacing: 1px; text-transform: uppercase;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .panel-dot { width: 6px; height: 6px; border-radius: 50%; }
+  .dot-red { background: #fc8181; }
+  .dot-yellow { background: #f6e05e; }
+  .dot-green { background: #68d391; }
+
+  .panel-dots { display: flex; gap: 5px; }
+
+  textarea {
+    width: 100%;
+    height: 320px;
+    background: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--text);
+    padding: 16px;
+    tab-size: 4;
+  }
+
+  textarea::placeholder { color: var(--text-muted); }
+
+  .output-area {
+    height: 320px;
+    overflow-y: auto;
+    padding: 16px;
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--green);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .output-area.error { color: var(--red); }
+
+  .output-placeholder {
+    color: var(--text-muted);
+    font-family: var(--mono);
+    font-size: 12px;
+  }
+
+  /* RUN BTN */
+  .btn-wrap {
+    display: flex; align-items: center; gap: 10px;
+    margin-top: 12px;
+  }
+
+  .btn-run {
+    display: flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 12px; font-weight: 600;
+    color: #050507;
+    background: var(--green);
+    border: none; border-radius: 8px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+  }
+
+  .btn-run:hover { background: #9ae6b4; transform: translateY(-1px); box-shadow: 0 4px 20px var(--green-glow); }
+  .btn-run:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .btn-clear {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--text-muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-clear:hover { color: var(--text); border-color: var(--border-hover); }
+
+  .loading-badge {
+    display: none;
+    align-items: center; gap: 6px;
+    font-family: var(--mono); font-size: 11px;
+    color: var(--blue);
+    padding: 6px 12px;
+    background: rgba(99,179,237,0.06);
+    border: 1px solid rgba(99,179,237,0.15);
+    border-radius: 100px;
+  }
+
+  .loading-badge.show { display: flex; }
+
+  .spin {
+    width: 10px; height: 10px;
+    border: 1.5px solid rgba(99,179,237,0.3);
+    border-top-color: var(--blue);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* EXAMPLES */
+  .examples {
+    margin-top: 32px;
+  }
+
+  .section-label {
+    font-family: var(--mono); font-size: 10px; color: var(--text-muted);
+    letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 12px;
+  }
+
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .examples-grid {
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+
+  .example-chip {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--text-dim);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 7px 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .example-chip:hover {
+    border-color: var(--border-hover);
+    color: var(--text);
+    background: var(--blue-glow);
+  }
+
+  @media (max-width: 700px) {
+    nav { padding: 0 20px; }
+    main { padding: 80px 20px 40px; }
+    .lab-wrap { grid-template-columns: 1fr; }
+    textarea, .output-area { height: 220px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<nav>
+  <a href="/" class="logo">xeenau<span>.github.io</span></a>
+  <div class="nav-right">
+    <div class="status-badge"><div class="dot"></div>lab · beta</div>
+  </div>
+</nav>
+
+<main>
+  <div class="hero">
+    <div class="hero-eyebrow">// python playground</div>
+    <h1>tulis, run, lihat output.</h1>
+    <p>practice langsung di browser — tidak perlu install apapun.</p>
+  </div>
+
+  <div class="lab-wrap">
+    <!-- EDITOR -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-dots">
+          <div class="panel-dot dot-red"></div>
+          <div class="panel-dot dot-yellow"></div>
+          <div class="panel-dot dot-green"></div>
+        </div>
+        <div class="panel-title">main.py</div>
+        <div style="width:48px"></div>
+      </div>
+      <textarea id="editor" spellcheck="false" placeholder="# tulis code Python lo di sini...
+
+print('Hello, World!')"></textarea>
+    </div>
+
+    <!-- OUTPUT -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-dots">
+          <div class="panel-dot dot-red"></div>
+          <div class="panel-dot dot-yellow"></div>
+          <div class="panel-dot dot-green"></div>
+        </div>
+        <div class="panel-title">output</div>
+        <div style="width:48px"></div>
+      </div>
+      <div class="output-area" id="output">
+        <span class="output-placeholder">// output akan muncul di sini</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-wrap">
+    <button class="btn-run" id="runBtn" onclick="runCode()" disabled>
+      ▶ run
+    </button>
+    <button class="btn-clear" onclick="clearOutput()">clear</button>
+    <div class="loading-badge" id="loadingBadge">
+      <div class="spin"></div>
+      loading Python...
+    </div>
+  </div>
+
+  <!-- EXAMPLES -->
+  <div class="examples">
+    <div class="section-label">contoh</div>
+    <div class="examples-grid">
+      <div class="example-chip" onclick="loadExample('hello')">hello world</div>
+      <div class="example-chip" onclick="loadExample('variable')">variable & data type</div>
+      <div class="example-chip" onclick="loadExample('condition')">condition</div>
+      <div class="example-chip" onclick="loadExample('loop')">loop</div>
+      <div class="example-chip" onclick="loadExample('function')">function</div>
+      <div class="example-chip" onclick="loadExample('list')">list</div>
+    </div>
+  </div>
+</main>
+
+<script>
+  let pyodide = null;
+
+  const examples = {
+    hello: `# coba ganti teks di dalam tanda kutip!
+print("Hello, World!")
+print("nama lo siapa?")`,
+
+    variable: `# variable & data type
+# coba ganti nilai di bawah ini!
+
+nama = "xeenau"    # ← ganti nama lo
+umur = 20          # ← ganti umur lo
+tinggi = 170.5     # ← ganti tinggi lo
+aktif = True       # ← True atau False
+
+print("nama :", nama)
+print("umur :", umur)
+print("tinggi :", tinggi)
+print("aktif :", aktif)
+
+print("")
+print("tipe nama :", type(nama).__name__)
+print("tipe umur :", type(umur).__name__)
+print("tipe tinggi :", type(tinggi).__name__)
+print("tipe aktif :", type(aktif).__name__)`,
+
+    condition: `# condition — coba ganti angka umurnya!
+
+umur = 20    # ← coba ganti ke 15, 10, 25
+
+if umur >= 17:
+    print("boleh masuk")
+elif umur >= 13:
+    print("remaja")
+else:
+    print("belum cukup umur")`,
+
+    loop: `# loop — coba ganti angka di range!
+
+for i in range(5):    # ← coba ganti 5 ke 3 atau 10
+    print("iterasi ke-", i)
+
+print("---")
+
+# coba ganti isi list!
+buah = ["apel", "mangga", "jeruk"]    # ← tambah atau ganti buah
+for b in buah:
+    print("buah:", b)`,
+
+    function: `# function — coba panggil dengan nama lo!
+
+def sapa(nama):
+    return "halo, " + nama + "!"
+
+def tambah(a, b):
+    return a + b
+
+print(sapa("xeenau"))    # ← ganti "xeenau" dengan nama lo
+print(sapa("bro"))
+print("2 + 3 =", tambah(2, 3))    # ← coba ganti angkanya`,
+
+    list: `# list — coba tambah atau ganti isinya!
+
+angka = [1, 2, 3, 4, 5]    # ← coba ganti atau tambah angka
+
+print("list:", angka)
+print("panjang:", len(angka))
+print("pertama:", angka[0])
+print("terakhir:", angka[-1])
+
+angka.append(6)    # ← coba ganti 6 ke angka lain
+print("setelah append:", angka)
+
+print("total:", sum(angka))`
+  };
+
+  function loadExample(key) {
+    document.getElementById('editor').value = examples[key];
+  }
+
+  async function initPyodide() {
+    const badge = document.getElementById('loadingBadge');
+    const btn = document.getElementById('runBtn');
+    badge.classList.add('show');
+    try {
+      pyodide = await loadPyodide();
+      badge.classList.remove('show');
+      btn.disabled = false;
+    } catch(e) {
+      badge.innerHTML = '⚠ gagal load Python';
+    }
+  }
+
+  async function runCode() {
+    if (!pyodide) return;
+    const code = document.getElementById('editor').value;
+    const output = document.getElementById('output');
+
+    output.className = 'output-area';
+    output.textContent = '';
+
+    try {
+      // redirect stdout
+      pyodide.runPython(`
+import sys
+import io
+sys.stdout = io.StringIO()
+sys.stderr = io.StringIO()
+      `);
+
+      pyodide.runPython(code);
+
+      const stdout = pyodide.runPython('sys.stdout.getvalue()');
+      const stderr = pyodide.runPython('sys.stderr.getvalue()');
+
+      if (stderr) {
+        output.className = 'output-area error';
+        output.textContent = '❌ ' + stderr;
+      } else {
+        output.innerText = stdout || '// code berjalan tanpa output';
+      }
+    } catch(err) {
+      output.className = 'output-area error';
+      output.textContent = '❌ ' + err.message;
+    }
+  }
+
+  function clearOutput() {
+    const output = document.getElementById('output');
+    output.className = 'output-area';
+    output.innerHTML = '<span class="output-placeholder">// output akan muncul di sini</span>';
+  }
+
+  // keyboard shortcut Ctrl+Enter to run
+  document.getElementById('editor').addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') runCode();
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      const ta = e.target;
+      const start = ta.selectionStart;
+      ta.value = ta.value.substring(0, start) + '    ' + ta.value.substring(ta.selectionEnd);
+      ta.selectionStart = ta.selectionEnd = start + 4;
+    }
+  });
+
+  initPyodide();
+</script>
+</body>
+</html>
