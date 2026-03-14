@@ -1,12 +1,12 @@
 # 🏗️ Basic Infrastructure
 
-> infrastructure itu bukan cuma urusan tim IT infra — developer juga wajib paham dasarnya sebelum bisa deploy app ke production.
+> infrastructure bukan hanya urusan tim IT infra, setiap developer wajib memahami dasarnya sebelum bisa men-deploy aplikasi ke production.
 
 ---
 
 ## 🖥️ On-premise vs VPS vs Cloud
 
-sebelum deploy, tentukan dulu tempat app lo jalan.
+sebelum men-deploy, tentukan terlebih dahulu di mana aplikasi akan berjalan.
 
 | | On-premise | VPS | Cloud |
 |---|---|---|---|
@@ -24,13 +24,13 @@ sebelum deploy, tentukan dulu tempat app lo jalan.
 
 ## 🐧 Operating System (OS)
 
-OS adalah lapisan pertama yang jalan di atas server — fondasi sebelum app lo bisa diinstall.
+OS adalah lapisan pertama yang berjalan di atas server. OS sebagai fondasi sebelum aplikasi dapat diinstall.
 
 ```
 # pilihan utama
-Linux    # paling umum di server — ringan, stable, gratis
-Windows  # butuh lisensi — cocok untuk ekosistem .NET atau Active Directory
-Unix     # enterprise level — AIX, Solaris
+Linux    # paling umum di server, ringan, stable, gratis
+Windows  # butuh lisensi, cocok untuk ekosistem .NET atau Active Directory
+Unix     # enterprise level, AIX, Solaris
 ```
 
 distro Linux yang paling sering dipakai di production:
@@ -39,22 +39,22 @@ distro Linux yang paling sering dipakai di production:
 Ubuntu      # paling populer, komunitas besar ← rekomendasi untuk pemula
 AlmaLinux   # pengganti CentOS, gratis, enterprise-grade
 Rocky Linux # pengganti CentOS, dibuat founder CentOS asli
-RHEL        # Red Hat Enterprise Linux — berbayar, support resmi
+RHEL        # Red Hat Enterprise Linux, berbayar, support resmi
 Debian      # sangat stable, ringan
 ```
 
-> **rekomendasi:** mulai dengan Ubuntu Server 22.04 LTS — dokumentasi paling lengkap.
+> **rekomendasi:** mulai dengan Ubuntu Server 22.04 LTS dokumentasi paling lengkap.
 
 ---
 
 ## 📊 Spec Server
 
-sebelum request server ke tim infra atau order di cloud — lo harus tau spesifikasi yang dibutuhkan app lo.
+sebelum melakukan request server ke tim infra atau memesan di cloud, pahami spesifikasi yang dibutuhkan aplikasi.
 
 ```
-CPU     # jumlah core untuk proses — makin banyak makin cepat
-RAM     # memori saat app berjalan — minimal 2GB untuk app sederhana
-Storage # tempat nyimpan data & OS
+CPU     # jumlah core untuk proses, makin banyak makin cepat
+RAM     # memori saat app berjalan, minimal 2GB untuk app sederhana
+Storage # tempat menyimpan data & OS
         # SSD → lebih cepat, harga lebih mahal
         # HDD → lebih murah, lebih lambat
 Network # kecepatan transfer data & jenis IP (public/private)
@@ -68,9 +68,9 @@ OS      : Ubuntu 22.04 LTS
 Network : 100Mbps, public IP
 ```
 
-> spec terlalu kecil = app lambat atau crash.
-> spec terlalu besar = buang budget.
-> sesuaikan dengan kebutuhan — bisa di-upgrade nanti.
+> spec terlalu kecil = aplikasi lambat atau crash.
+> spec terlalu besar = pemborosan budget.
+> sesuaikan dengan kebutuhan, dapat di-upgrade kapanpun.
 
 ---
 
@@ -78,14 +78,14 @@ Network : 100Mbps, public IP
 
 masalah klasik yang sering terjadi:
 
-> *"di laptop gue jalan, di server kok gak jalan?"*
+> *"di laptop berjalan, di server kenapa tidak?"*
 
-penyebabnya — environment berbeda. solusinya: **Docker**.
+penyebabnya : environment yang berbeda. solusinya: **Docker**.
 
 ```
-Image      # blueprint aplikasi lo (berisi OS, dependency, config)
-Container  # instance yang jalan dari sebuah image
-Volume     # tempat nyimpan data yang persisten
+Image      # blueprint aplikasi (berisi OS, dependency, config)
+Container  # instance yang berjalan dari sebuah image
+Volume     # tempat menyimpan data yang persisten
 Port       # jembatan antara container dan dunia luar
 ```
 
@@ -96,14 +96,14 @@ docker build -t myapp .     # build image dari Dockerfile
 docker run -p 8080:80 myapp # jalankan container
 ```
 
-> dengan Docker — environment di laptop, VPS, dan cloud akan selalu sama.
-> tidak ada lagi "jalan di sini tapi tidak di sana."
+> dengan Docker, environment di laptop, VPS, dan cloud akan selalu sama.
+> tidak ada lagi masalah "berjalan di sini tapi tidak di sana."
 
 ---
 
 ## 🗄️ Database
 
-setiap app butuh tempat nyimpan data. ada dua kategori utama:
+setiap aplikasi membutuhkan tempat menyimpan data. ada dua kategori utama:
 
 **SQL (Relational)** — data terstruktur dengan relasi antar tabel:
 ```
@@ -118,19 +118,19 @@ MongoDB    # document-based, struktur data fleksibel
 Cassandra  # distributed, dirancang untuk data skala sangat besar
 ```
 
-> pilih SQL kalau data lo terstruktur dan butuh relasi antar tabel.
-> pilih NoSQL kalau data lo fleksibel, butuh speed tinggi, atau skala besar.
+> pilih SQL apabila data terstruktur dan membutuhkan relasi antar tabel.
+> pilih NoSQL apabila data fleksibel, membutuhkan kecepatan tinggi, atau skala besar.
 
 ---
 
 ## 🌐 API
 
-API adalah jembatan komunikasi antara app lo dengan service lain — atau antara frontend dan backend.
+API adalah jembatan komunikasi antara aplikasi dengan service lain atau antara frontend dan backend.
 
 ```
 REST API   # standar paling umum — berbasis HTTP request/response
-Endpoint   # URL spesifik yang bisa dipanggil
-JSON       # format data yang paling sering dipakai
+Endpoint   # URL spesifik yang dapat dipanggil
+JSON       # format data yang paling sering digunakan
 ```
 
 contoh endpoint dengan method CRUD (Create, Read, Update, Delete):
@@ -147,10 +147,10 @@ DELETE /users/1      # hapus user dengan id 1
 
 ## 🔥 Firewall & Network
 
-setelah server siap dan app berjalan — pastikan akses dari luar sudah dikonfigurasi dengan benar.
+setelah server siap dan aplikasi berjalan kemudian pastikan akses dari luar sudah dikonfigurasi dengan benar.
 
 ```
-# on-premise → request ke tim infra untuk buka port
+# on-premise → request ke tim infra untuk membuka port
 # cloud → konfigurasi di security group / firewall rules
 ```
 
