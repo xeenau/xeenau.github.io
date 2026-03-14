@@ -1,87 +1,87 @@
 # 🖥️ 5 Fundamental IT untuk Pemula
 
-> sebelum belajar apapun di IT, kuasai ini dulu.
+> sebelum mempelajari apapun di bidang IT, kuasai fondasi ini terlebih dahulu.
 
 ---
 
 ## 1. 🌐 Networking
 
-Semua aplikasi butuh komunikasi. Backend, frontend, mobile — semua pakai networking. Debugging production issues? Butuh ini.
+semua aplikasi membutuhkan komunikasi. backend, frontend, mobile semuanya bergantung pada networking. saat debugging production issues, pemahaman networking menjadi tidak tergantikan.
 
-Yang harus dipahami:
+yang harus dipahami:
 - 📡 IP Address, Subnet
 - 🔄 TCP, UDP
 - 🌍 DNS, HTTP, HTTPS
-- 🔒 Basic security (Firewall, VPN)
+- 🔒 basic security (firewall, VPN)
 
 ---
 
 ## 2. 🐧 Operating System
 
-Linux = must-have skill. 80% server production pakai Linux. Mau masuk Developer / DevOps / Automation? Linux.
+Linux adalah skill yang wajib dimiliki. 80% server production berjalan di atas Linux. bagi yang ingin masuk ke jalur Developer, DevOps, atau Automation. Linux adalah keharusan.
 
-Yang harus bisa:
-- 📂 File navigation — `cd`, `ls`, `pwd`
-- 📝 File operations — `cp`, `mv`, `rm`
-- 🔑 Permissions — `chmod`, `chown`
-- 🔧 Basic troubleshooting
+yang harus dikuasai:
+- 📂 file navigation — `cd`, `ls`, `pwd`
+- 📝 file operations — `cp`, `mv`, `rm`
+- 🔑 permissions — `chmod`, `chown`
+- 🔧 basic troubleshooting
 
 ---
 
 ## 3. 💡 Logic & Coding
 
-Bahasa programming bisa diganti. Tapi logic & problem solving = lifetime skill.
+bahasa pemrograman dapat berganti. namun logic dan problem solving adalah skill seumur hidup.
 
-Focus on:
-- 🧮 Algoritma dasar (sorting, searching)
-- 🗂️ Data structures (array, hash, tree)
-- 🐛 Debugging approach
-- ✨ Writing clean code
+fokus pada:
+- 🧮 algoritma dasar (sorting, searching)
+- 🗂️ data structures (array, hash, tree)
+- 🐛 debugging approach
+- ✨ menulis kode yang bersih
 
-> Framework, tools = comes later. Logic first.
+> framework dan tools dapat dipelajari belakangan. logic adalah prioritas utama.
 
 ---
 
 ## 4. 🏗️ Infrastructure
 
-Paham infrastructure = career advantage.
+memahami infrastructure adalah keunggulan kompetitif dalam karier IT.
 
-Minimal paham:
-- 🖥️ How servers work
-- 🗄️ Database basics
-- 🔌 API concepts
-- ☁️ Cloud fundamentals (AWS / GCP / Azure)
-- 🐳 Containerization (Docker basics)
+minimal yang perlu dipahami:
+- 🖥️ cara kerja server
+- 🗄️ database basics
+- 🔌 konsep API
+- ☁️ cloud fundamentals (AWS / GCP / Azure)
+- 🐳 containerization (Docker basics)
 
-Skill ini valuable di: Backend, Full-stack, DevOps, Cloud, dll.
+skill ini bernilai tinggi di jalur: backend, full-stack, DevOps, cloud, dan lainnya.
 
 ---
 
 ## 5. 🔒 Basic Security
 
-Every developer atau IT team HARUS paham security. 1 vulnerability = company bisa rugi miliaran.
+setiap developer dan tim IT wajib memahami security. satu celah keamanan dapat menyebabkan kerugian yang sangat besar.
 
-Basic yang wajib:
-- 🔐 Authentication vs Authorization
+dasar yang wajib dikuasai:
+- 🔐 authentication vs authorization
 - 🔏 HTTPS & SSL/TLS
-- ⚠️ Common vulnerabilities (SQL Injection, XSS)
-- 🛡️ Secure coding practices
+- ⚠️ common vulnerabilities (SQL Injection, XSS)
+- 🛡️ secure coding practices
 - 🔑 API security
 
 ---
 
 ## +1. 🇬🇧 Bahasa Inggris
 
-Sering kelewat, padahal penting banget.
+sering diabaikan, padahal dampaknya sangat besar.
 
-Gak perlu fluent, cukup "tipis-tipis":
-- 📚 90% dokumentasi = English
-- 💬 Stack Overflow = English
-- ❗ Error messages = English
-- 🎥 Tutorial terbaik = English
+tidak perlu fasih berbicara — cukup mampu membaca dengan baik:
+- 📚 90% dokumentasi teknis ditulis dalam bahasa Inggris
+- 💬 Stack Overflow menggunakan bahasa Inggris
+- ❗ pesan error ditulis dalam bahasa Inggris
+- 🎥 tutorial terbaik tersedia dalam bahasa Inggris
 
-> Improve reading English dulu, yang lain ngikut.
+> tingkatkan kemampuan membaca bahasa Inggris terlebih dahulu yang lain akan mengikuti.
 
 ---
 
-*#keeplearning*
+*#keeplearning* *#xeenau*
