@@ -1,33 +1,32 @@
 # 💡 Logic & Coding
 
-> sebelum mikirin bahasa programming — pahami dulu cara komputer berpikir.
+> sebelum memikirkan bahasa pemrograman alangkah baiknya pahami terlebih dahulu cara komputer berpikir.
 
 ---
 
 ## 🤖 Apa itu Programming?
 
-komputer itu bodoh. dia gak bisa mikir sendiri.
-dia cuma bisa ngikutin perintah — satu per satu.
+komputer tidak dapat berpikir sendiri. komputer hanya dapat mengikuti perintah satu per satu, secara berurutan.
 
-tugas lo sebagai programmer? ngasih perintah yang jelas.
+tugas seorang programmer adalah memberikan perintah yang jelas dan terstruktur.
 
-contoh paling simple di dunia coding:
+contoh paling sederhana:
 
 ```python
 print("Hello, World!")
 ```
 
-lo tulis itu → komputer baca → keluar tulisan. sesimpel itu.
+kode ditulis → komputer membaca → output muncul. sesederhana itu.
 
-> coding = bahasa buat ngomong ke komputer.
-> makin lo paham bahasanya, makin kompleks yang bisa lo suruh dia kerjain.
+> coding adalah bahasa untuk berkomunikasi dengan komputer.
+> semakin dalam pemahamannya, semakin kompleks instruksi yang dapat diberikan.
 
 ---
 
 ## 🧠 3 Logic Dasar
 
-komputer kerja secara sequential — satu perintah selesai, baru lanjut ke berikutnya.
-tapi logic dasarnya cuma 3:
+komputer bekerja secara sequential yaitu satu perintah selesai, baru lanjut ke berikutnya.
+namun logic dasarnya hanya ada 3:
 
 ```
 1. sequence   # jalankan satu per satu
@@ -35,20 +34,20 @@ tapi logic dasarnya cuma 3:
 3. loop       # ulangi sampai selesai
 ```
 
-> semua program di dunia — sebesar apapun — dibangun dari 3 hal ini.
+> semua program di dunia, sebesar apapun, dibangun dari 3 hal ini.
 
 ---
 
 ## 📦 Konsep Dasar
 
-3 logic tadi butuh "wadah" buat jalan. ini konsep dasar yang wajib lo tau:
+ketiga logic tersebut membutuhkan "wadah" untuk berjalan. berikut konsep dasar yang wajib dipahami:
 
 ```python
-# variable — tempat nyimpan data
-nama = "xeenau"    # string (teks)
-umur = 20          # integer (angka)
+# variable — tempat menyimpan data
+nama   = "xeenau"  # string (teks)
+umur   = 20        # integer (angka)
 tinggi = 170.5     # float (desimal)
-aktif = True       # boolean (true/false)
+aktif  = True      # boolean (true/false)
 
 # condition — if this → do that
 if umur >= 17:
@@ -62,7 +61,7 @@ else:
 for i in range(3):
     print("halo!")    # diulang 3x
 
-# function — kumpulan perintah yang bisa dipanggil ulang
+# function — kumpulan perintah yang dapat dipanggil ulang
 def sapa(nama):
     return "halo, " + nama + "!"
 
@@ -73,7 +72,7 @@ print(sapa("xeenau"))
 
 ## 🔢 Data Type
 
-tiap variable punya tipe data — Python bisa cek pakai `type()`:
+setiap variable memiliki tipe data, Python dapat mengeceknya menggunakan `type()`:
 
 ```python
 nama   = "xeenau"   # str   — teks
@@ -91,29 +90,29 @@ print(type(aktif).__name__)   # bool
 
 ## 🛠️ Mulai dari Mana?
 
-install Python di [python.org](https://python.org), buka VSCode, buat file `main.py`, tulis code, run:
+install Python di [python.org](https://python.org), buka VSCode, buat file `main.py`, tulis kode, jalankan:
 
 ```bash
 python main.py
 ```
 
-atau langsung practice di browser tanpa install apapun:
+atau langsung practice di browser tanpa instalasi apapun:
 🔗 [xeenau.github.io/lab/python](https://xeenau.github.io/lab/python)
 
 ---
 
 ## 🔁 Tips Practice
 
-ini baru logic dasarnya — belum masuk ke bahasa programming spesifik, belum web, belum backend, belum AI.
+ini baru logic dasarnya, belum masuk ke bahasa pemrograman spesifik, belum web, belum backend, belum AI.
 
-tapi ini fondasi lo. semua bahasa pakai logic yang sama.
+namun ini adalah fondasi dari segalanya. semua bahasa pemrograman menggunakan logic yang sama.
 
-sekarang coba sendiri:
+coba secara mandiri:
 - ganti variabel, ganti angka, ganti kondisi
-- lihat outputnya berubah
-- ulang-ulang dengan use case yang berbeda — sampai lo ngerti, bukan cuma hafal
+- perhatikan bagaimana output berubah
+- ulangi dengan use case yang berbeda sampai benar-benar paham, bukan sekadar hafal
 
-> logic ini yang akan lo pakai seumur hidup sebagai programmer.
+> logic ini yang akan digunakan seumur hidup sebagai programmer.
 
 ---
 
